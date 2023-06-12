@@ -21,23 +21,24 @@ class GameSprite(sprite.Sprite):
         main_win.blit(self.image, (self.rect.x, self.rect.y))
 
 class Player(GameSprite):
-    def update_1(self):
-        pressed_keys = key.get_pressed()
-        if pressed_keys[K_UP] and self.rect.y > 5:
-            self.rect.y += self.speed
-        if pressed_keys[K_DOWN] and self.rect.y < 630:
-            self.rect.y -= self.speed
     def update_2(self):
         pressed_keys = key.get_pressed()
-        if pressed_keys[K_w] and self.rect.y > 5:
-            self.rect.y += self.speed
-        if pressed_keys[K_s] and self.rect.y < 630:
+        if pressed_keys[K_UP] and self.rect.y > 5:
             self.rect.y -= self.speed
+        if pressed_keys[K_DOWN] and self.rect.y < 630:
+            self.rect.y += self.speed
+    def update_1(self):
+        pressed_keys = key.get_pressed()
+        if pressed_keys[K_w] and self.rect.y > 5:
+            self.rect.y -= self.speed
+        if pressed_keys[K_s] and self.rect.y < 630:
+            self.rect.y += self.speed
 
 class Ball(GameSprite):
     def update(self):
-        speed_x = 6
-        speed_y = 6
+        global speed_x, speed_y
+        speed_x = 0
+        speed_y = 0
         self.rect.x += speed_x
         self.rect.y += speed_y
         if self.rect.x > 695 or self.rect.x < 5:
@@ -52,24 +53,28 @@ player_2 = Player('rocket.png',600,250,10,70,70)
 ball = Ball('ball.png',130,280,0,20,20)
 
 game = True
-clock = time.clock()
+clock = time.Clock()
 fps = 60
 finish = False
 
 while game:
+    for e in event.get():
+        if e.type == QUIT:
+            game = False
     if not finish:
         player_1.reset()
         player_1.update_1()
         player_2.reset()
         player_2.update_2()
+        ball.reset()
         ball.update()
 
-        if sptite.spritecollide(player_1, ball, False) or sprite.spritecollide(player_2, ball, False):
+        if sprite.collide_rect(player_1, ball) or sprite.collide_rect(player_2, ball):
             speed_x *= -1
 
         if ball.rect.x < 100 or ball.rect.x > 600:
             finish = True
-            window.blit(lose, 250,250)
+            main_win.blit(lose,(250,250))
 
 
         clock.tick(fps)
