@@ -7,7 +7,7 @@ main_win.fill((20, 59, 199))
 
 font.init()
 font = font.Font(None, 70)
-lose = font.render('YOU LOSE!', True, (235, 115, 2))
+lose = font.render('YOU LOSE!', True, (194,0,0))
 
 class GameSprite(sprite.Sprite):
     def __init__(self,p_image,p_x,p_y,p_speed,size_x,size_y):
@@ -25,24 +25,22 @@ class Player(GameSprite):
         pressed_keys = key.get_pressed()
         if pressed_keys[K_UP] and self.rect.y > 5:
             self.rect.y -= self.speed
-        if pressed_keys[K_DOWN] and self.rect.y < 630:
+        if pressed_keys[K_DOWN] and self.rect.y < 600:
             self.rect.y += self.speed
     def update_1(self):
         pressed_keys = key.get_pressed()
         if pressed_keys[K_w] and self.rect.y > 5:
             self.rect.y -= self.speed
-        if pressed_keys[K_s] and self.rect.y < 630:
+        if pressed_keys[K_s] and self.rect.y < 600:
             self.rect.y += self.speed
 
 class Ball(GameSprite):
     def update(self):
         global speed_x, speed_y
-        speed_x = 0
-        speed_y = 0
+        speed_x = 3
+        speed_y = 3
         self.rect.x += speed_x
         self.rect.y += speed_y
-        if self.rect.x > 695 or self.rect.x < 5:
-            speed_x *= -1
         if self.rect.y > 495 or self.rect.y < 5:
             speed_y *= -1
             
@@ -61,6 +59,7 @@ while game:
     for e in event.get():
         if e.type == QUIT:
             game = False
+
     if not finish:
         player_1.reset()
         player_1.update_1()
