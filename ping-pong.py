@@ -2,7 +2,12 @@ from pygame import *
 
 
 main_win = display.set_mode((700,500))
-main_win.fill((230,57,189))
+display.set_caption('Ping-Pong')
+main_win.fill((20, 59, 199))
+
+font.init()
+font = font.Font(None, 70)
+lose = font.render('YOU LOSE!', True, (235, 115, 2))
 
 class GameSprite(sprite.Sprite):
     def __init__(self,p_image,p_x,p_y,p_speed,size_x,size_y):
@@ -31,22 +36,41 @@ class Player(GameSprite):
 
 class Ball(GameSprite):
     def update(self):
-        if 
+        speed_x = 6
+        speed_y = 6
+        self.rect.x += speed_x
+        self.rect.y += speed_y
+        if self.rect.x > 695 or self.rect.x < 5:
+            speed_x *= -1
+        if self.rect.y > 495 or self.rect.y < 5:
+            speed_y *= -1
+            
+
 
 player_1 = Player('rocket.png',100,250,10,70,70)
 player_2 = Player('rocket.png',600,250,10,70,70)
+ball = Ball('ball.png',130,280,0,20,20)
 
 game = True
-clock = Clock()
+clock = time.clock()
 fps = 60
+finish = False
 
 while game:
-    player_1.reset()
-    player_1.update_1()
-    player_2.reset()
-    player_2.update_2()
+    if not finish:
+        player_1.reset()
+        player_1.update_1()
+        player_2.reset()
+        player_2.update_2()
+        ball.update()
+
+        if sptite.spritecollide(player_1, ball, False) or sprite.spritecollide(player_2, ball, False):
+            speed_x *= -1
+
+        if ball.rect.x < 100 or ball.rect.x > 600:
+            finish = True
+            window.blit(lose, 250,250)
 
 
-
-    clock.tick(fps)
-    display.update()
+        clock.tick(fps)
+        display.update()
