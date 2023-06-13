@@ -3,7 +3,7 @@ from pygame import *
 
 main_win = display.set_mode((700,500))
 display.set_caption('Ping-Pong')
-main_win.fill((20, 59, 199))
+main_win.fill((0,176,248))
 
 font.init()
 font = font.Font(None, 70)
@@ -46,9 +46,9 @@ class Ball(GameSprite):
             
 
 
-player_1 = Player('rocket.png',100,250,10,70,70)
-player_2 = Player('rocket.png',600,250,10,70,70)
-ball = Ball('ball.png',130,280,0,20,20)
+player_1 = Player('platform2.jpg',100,250,10,10,90)
+player_2 = Player('platform2.jpg',600,250,10,10,90)
+ball = Ball('ball.png',130,280,0,30,30)
 
 game = True
 clock = time.Clock()
