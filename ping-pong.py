@@ -7,7 +7,8 @@ main_win.fill((0,176,248))
 
 font.init()
 font = font.Font(None, 70)
-lose = font.render('YOU LOSE!', True, (194,0,0))
+win1 = font.render('PLAYER 2 WIN!', True, (251,161,0))
+win2 = font.render('PLAYER 1 WIN!', True, (251,161,0))
 
 class GameSprite(sprite.Sprite):
     def __init__(self,p_image,p_x,p_y,p_speed,size_x,size_y):
@@ -71,9 +72,12 @@ while game:
         if sprite.collide_rect(player_1, ball) or sprite.collide_rect(player_2, ball):
             speed_x *= -1
 
-        if ball.rect.x < 100 or ball.rect.x > 600:
+        if ball.rect.x < 100:
             finish = True
-            main_win.blit(lose,(250,250))
+            main_win.blit(win1,(250,250))
+        if ball.rect.x > 600:
+            finish = True
+            main_win.blit(win2, (250,250))
 
 
         clock.tick(fps)
