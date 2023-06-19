@@ -3,7 +3,6 @@ from pygame import *
 
 main_win = display.set_mode((700,500))
 display.set_caption('Ping-Pong')
-main_win.fill((0,176,248))
 
 font.init()
 font = font.Font(None, 70)
@@ -62,6 +61,7 @@ while game:
             game = False
 
     if not finish:
+        main_win.fill((0,176,248))
         player_1.reset()
         player_1.update_1()
         player_2.reset()
@@ -69,15 +69,15 @@ while game:
         ball.reset()
         ball.update()
 
-        if sprite.collide_rect(player_1, ball) or sprite.collide_rect(player_2, ball):
-            speed_x *= -1
+    if sprite.collide_rect(player_1, ball) or sprite.collide_rect(player_2, ball):
+        speed_x *= -1
 
-        if ball.rect.x < 100:
-            finish = True
-            main_win.blit(win1,(250,250))
-        if ball.rect.x > 600:
-            finish = True
-            main_win.blit(win2, (250,250))
+    if ball.rect.x < 100:
+        finish = True
+        main_win.blit(win1,(250,250))
+    if ball.rect.x > 600:
+        finish = True
+        main_win.blit(win2, (250,250))
 
 
         clock.tick(fps)
