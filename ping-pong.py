@@ -37,13 +37,13 @@ class Player(GameSprite):
 class Ball(GameSprite):
     def update(self):
         global speed_x, speed_y
-        speed_x = 3
-        speed_y = 3
         self.rect.x += speed_x
         self.rect.y += speed_y
         if self.rect.y > 495 or self.rect.y < 5:
             speed_y *= -1
-            
+
+speed_x = 3
+speed_y = 3        
 
 
 player_1 = Player('platform2.jpg',100,250,10,10,90)
@@ -63,10 +63,10 @@ while game:
     if not finish:
         main_win.fill((0,176,248))
         player_1.reset()
-        player_1.update_1()
         player_2.reset()
-        player_2.update_2()
         ball.reset()
+        player_1.update_1()
+        player_2.update_2()
         ball.update()
 
     if sprite.collide_rect(player_1, ball) or sprite.collide_rect(player_2, ball):
@@ -80,5 +80,5 @@ while game:
         main_win.blit(win2, (250,250))
 
 
-        clock.tick(fps)
-        display.update()
+    clock.tick(fps)
+    display.update()
